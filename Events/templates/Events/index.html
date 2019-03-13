@@ -1,0 +1,174 @@
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <title>View Events!</title>
+
+    <!-- Bootstrap core CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="offcanvas.css" rel="stylesheet">
+  </head>
+  <body class="bg-light"><div style="background-color: blue">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+      <font style="color:white;">
+  ICT EVENTS MANAGEMENT</font>
+  <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item inactive">
+        <a class="nav-link" href="http://127.0.0.1:8000/">Home<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="http://127.0.0.1:8000/admin/">Admin Login</a>
+      </li>
+    </ul>
+     
+          
+          <a href="http://127.0.0.1:8000/events/search/"><button class="btn btn-outline-light">Search</button></a>
+        </form>
+
+  </div>
+</nav>
+</div>
+
+
+<main role="main" class="container">
+  <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
+   ???
+  </div>
+
+
+
+  <div class="my-3 p-3 bg-white rounded shadow-sm">
+    <h2  class="border-bottom border-gray pb-2 mb-0" style="font-size: 40px; font-family: Arial; color: grey;">Upcoming Events</h2>
+    
+     
+
+  {%if events %}
+    {%for event in events%}
+    
+         <div class="media text-muted pt-3"> 
+           <h2 class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+           <strong class="d-block text-gray-dark"> Name :  {{event.event_name}}</strong><br>
+           Date :{{event.event_date}} <br>Start Time : {{event.start_time}} <br>End Time : {{event.end_time}}<br>Rooms :{{event.event_rooms}}<br>Organizer : {{event.event_organizers}}<br>Description : {{event.description}}</h2>
+      
+         </div>
+         {% endfor%} 
+
+    {%else%}
+    <strong class="d-block text-blue-dark">
+No Upcoming events!</strong>
+{% endif %}
+  
+    
+    
+</div>
+</main>
+
+
+</body>
+
+</html>
+<!-- 
+    def clean (self):
+        cleaned_data = super (EventForm, self).clean()
+        print (cleaned_data)
+        event_name = cleaned_data.get ('event_name')
+        event_duration = cleaned_data.get ('event_duration') 
+        event_date = cleaned_data.get ('event_date')
+        event_startTime = cleaned_data.get('event_startTime')
+        event_duration = cleaned_data.get ('event_duration')
+        event_rooms = cleaned_data.get ('event_rooms')
+        if self.instance.pk:
+            print("We are updating", self.instance)
+            required_event = Event.objects.filter (event_date = event_date,event_startTime= event_startTime).exclude(pk = self.instance.pk)
+        else:
+            print ('That Object doesnt exist')
+            required_event = Event.objects.filter (event_date = event_date,event_startTime= event_startTime)
+        print ("Events in this date and time",required_event)
+        for room in event_rooms:
+            if required_event.filter (event_rooms = room).exists():
+                print ("Event with this rooms in given date and time", required_event.filter (event_rooms = room))
+                raise forms.ValidationError("Event with this room in ths Event Date and Time ALready Exists")
+                break
+            else:
+                continue
+        return cleaned_data
+
+
+
+
+
+class EventForm(forms.ModelForm):
+    
+    class Meta:
+        model = Event 
+        fields= ('event_name','event_date','event_rooms','start_time','end_time')  
+    
+    def clean (self):
+        cleaned_data = super (EventForm, self).clean()
+        event_name = cleaned_data.get ('event_name')
+        end_time = cleaned_data.get ('end_time') 
+        event_date = cleaned_data.get ('event_date')
+        start_time = cleaned_data.get('start_time')
+        #event_duration = cleaned_data.get ('event_duration')
+        event_rooms = cleaned_data.get ('event_rooms')
+        if self.instance.pk:
+            print("We are updating", self.instance)
+            required = Event.objects.filter (event_date = event_date).exclude(pk = self.instance.pk)
+        else:
+            print ('That Object doesnt exist')
+            required = Event.objects.filter (event_date = event_date)
+        print ("Events in this date and time",required_event)
+
+        if required.filter(start_time__gt=start_time, end_time__lt=start_time).exists():
+          print(required.filter(start_time__gt=start_time, end_time__lt=start_time))
+          raise forms.ValidationError("This time is already allocated for some other event.Change your start time")
+
+        for room in event_rooms:
+            if required.filter (event_rooms = room).exists():
+                print ("Event with this rooms in given date and time", required.filter (event_rooms = room))
+                raise forms.ValidationError("Event with this room in ths Event Date and Time ALready Exists")
+                break
+            else:
+                continue
+        return cleaned_data
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
